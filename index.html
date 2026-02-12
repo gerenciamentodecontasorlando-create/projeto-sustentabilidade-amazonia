@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projeto Ouro Verde — Pavimentação e Mobiliário Urbano com Vidro Reciclado</title>
+  <meta name="description" content="Projeto Técnico da Construtora Ouro Verde: pavimentação intertravada, pisos drenantes e mobiliário urbano usando vidro reciclado. Planejamento, aprovação, implantação e licitação." />
+
+  <style>
+    :root{
+      --bg: #0b1020;
+      --bg2:#0e1630;
+      --card:#0f1b3a;
+      --line:#1b2a58;
+      --text:#eaf0ff;
+      --muted:#a9b7e3;
+      --accent:#4aa3ff;
+      --accent2:#7c4dff;
+      --ok:#2de39f;
+      --warn:#ffcc66;
+      --bad:#ff5c7a;
+
+      --radius: 18px;
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --shadow2: 0 10px 25px rgba(0,0,0,.25);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(74,163,255,.25), transparent 60%),
+        radial-gradient(900px 500px at 85% 20%, rgba(124,77,255,.18), transparent 60%),
+        radial-gradient(800px 600px at 60% 90%, rgba(45,227,159,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #070a14 60%, #060812);
+      overflow-x:hidden;
+    }
+
+    a{ color: var(--accent); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .wrap{
+      width:min(1150px, 92vw);
+      margin: 28px auto 70px;
+    }
+
+    /* Top bar */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+      background: rgba(6,8,18,.62);
+      border: 1px solid rgba(255,255,255,.07);
+      box-shadow: 0 10px 25px rgba(0,0,0,.20);
+      border-radius: 20px;
+      padding: 10px 12px;
+      margin-bottom: 18px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 6px 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(135deg, rgba(74,163,255,.14), rgba(124,77,255,.10));
+      box-shadow: var(--shadow2);
+      min-width: 220px;
+    }
+
+    .logo{
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background:
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.35), transparent 55%),
+        linear-gradient(135deg, var(--accent), var(--accent2));
+      position: relative;
+      box-shadow: 0 12px 30px rgba(74,163,255,.18);
+    }
+
+    .logo:after{
+      content:"";
+      position:absolute;
+      inset: 7px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.22);
+      transform: rotate(10deg);
+    }
+
+    .brand h1{
+      font-size: 13px;
+      margin:0;
+      line-height:1.1;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      opacity:.95;
+    }
+    .brand p{
+      margin:2px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height:1.2;
+    }
+
+    .nav{
+      display:flex;
+      gap:8px;
+      flex-wrap: wrap;
+      align-items:center;
+      justify-content: flex-end;
+      flex:1;
+    }
+
+    .chip{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+    }
+    .chip:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(74,163,255,.28); }
+    .chip.primary{
+      background: linear-gradient(135deg, rgba(74,163,255,.22), rgba(124,77,255,.18));
+      border-color: rgba(74,163,255,.35);
+    }
+
+    /* Hero */
+    .hero{
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(900px 360px at 20% 15%, rgba(74,163,255,.18), transparent 65%),
+        radial-gradient(700px 320px at 85% 30%, rgba(124,77,255,.16), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      padding: 22px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.4fr .9fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .kicker{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+      align-items:center;
+      margin-bottom: 8px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .dot{
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 0 6px rgba(45,227,159,.10);
+    }
+
+    .hero h2{
+      font-size: clamp(20px, 2.6vw, 34px);
+      margin: 10px 0 6px;
+      line-height:1.1;
+      letter-spacing: .2px;
+    }
+    .hero p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .heroActions{
+      display:flex;
+      gap:10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-size: 13px;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(74,163,255,.30); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(74,163,255,.25), rgba(124,77,255,.22));
+      border-color: rgba(74,163,255,.35);
+    }
+    .btn .ico{
+      width: 18px; height: 18px;
+      display:inline-grid; place-items:center;
+      border-radius: 8px;
+      background: rgba(0,0,0,.20);
+      border: 1px solid rgba(255,255,255,.10);
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(255,255,255,.85);
+    }
+
+    /* Right hero card */
+    .panel{
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.05));
+      padding: 16px;
+      box-shadow: var(--shadow2);
+      height: 100%;
+    }
+
+    .panel h3{
+      margin:0 0 10px;
+      font-size: 13px;
+      color: rgba(255,255,255,.9);
+      letter-spacing: .4px;
+      text-transform: uppercase;
+    }
+
+    .kv{
+      display:grid;
+      gap:10px;
+    }
+    .kv .row{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding: 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+    }
+    .kv .tag{
+      min-width: 90px;
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+    .kv .val{
+      font-size: 13px;
+      color: rgba(255,255,255,.92);
+      line-height:1.35;
+    }
+
+    /* Sections */
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow2);
+      padding: 16px;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size: 14px;
+      letter-spacing:.2px;
+    }
+    .card p, .card li{
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    ul{ margin: 10px 0 0; padding-left: 18px; }
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      margin: 18px 0;
+      border:0;
+    }
+
+    /* Timeline */
+    .timeline{
+      margin-top: 10px;
+      display:grid;
+      gap: 10px;
+    }
+    .step{
+      display:grid;
+      grid-template-columns: 44px 1fr;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.09);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      position:relative;
+      overflow:hidden;
+    }
+    .step:hover{ border-color: rgba(74,163,255,.30); }
+
+    .num{
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display:grid;
+      place-items:center;
+      background: rgba(0,0,0,.22);
+      border: 1px solid rgba(255,255,255,.10);
+      font-family: var(--mono);
+      color: rgba(255,255,255,.9);
+      font-weight: 600;
+      letter-spacing:.2px;
+    }
+    .step h4{
+      margin:0;
+      font-size: 14px;
+    }
+    .meta{
+      display:flex;
+      gap:8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .pill{
+      font-size: 11px;
+      color: rgba(255,255,255,.88);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding: 6px 8px;
+      border-radius: 999px;
+    }
+    .pill.ok{ border-color: rgba(45,227,159,.35); background: rgba(45,227,159,.10); }
+    .pill.warn{ border-color: rgba(255,204,102,.35); background: rgba(255,204,102,.10); }
+    .pill.info{ border-color: rgba(74,163,255,.35); background: rgba(74,163,255,.10); }
+
+    details{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      padding: 10px 12px;
+    }
+    summary{
+      cursor:pointer;
+      list-style:none;
+      font-weight: 600;
+      font-size: 13px;
+      color: rgba(255,255,255,.92);
+    }
+    summary::-webkit-details-marker{ display:none; }
+    details p{ margin: 10px 0 0; }
+
+    .twoCols{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .callout{
+      border-radius: 18px;
+      padding: 12px;
+      border: 1px solid rgba(74,163,255,.25);
+      background: linear-gradient(135deg, rgba(74,163,255,.12), rgba(124,77,255,.08));
+    }
+    .callout b{ color: rgba(255,255,255,.95); }
+    .callout p{ margin: 6px 0 0; }
+
+    .mini{
+      font-family: var(--mono);
+      font-size: 12px;
+      color: rgba(255,255,255,.86);
+      padding: 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      overflow:auto;
+      max-height: 210px;
+    }
+
+    .footer{
+      margin-top: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      padding: 14px 16px;
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .footer small{ color: var(--muted); }
+
+    .progress{
+      display:flex; gap:10px; align-items:center;
+    }
+    .bar{
+      width: 180px;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+      overflow:hidden;
+    }
+    .fill{
+      height:100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 999px;
+      transition: width .35s ease;
+    }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .heroGrid{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: 1fr; }
+      .twoCols{ grid-template-columns: 1fr; }
+      .brand{ min-width: auto; }
+    }
+
+    /* Print */
+    @media print{
+      body{
+        background: #ffffff !important;
+        color: #111 !important;
+      }
+      .topbar, .heroActions, .chip, .footer .progress { display:none !important; }
+      .wrap{ width: 100%; margin: 0; }
+      .hero, .card, .panel, details, .step, .footer{
+        box-shadow: none !important;
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+        color: #111 !important;
+      }
+      .card p, .card li, .hero p, .kv .val, .kv .tag, small{ color: #333 !important; }
+      a{ color:#0b5bd3 !important; text-decoration: underline !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="topbar" role="banner">
+      <div class="brand" aria-label="Projeto Ouro Verde">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Projeto Ouro Verde</h1>
+          <p>Vidro reciclado → pavimentação + mobiliário urbano</p>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Atalhos">
+        <button class="chip" data-go="#visao">Visão geral</button>
+        <button class="chip" data-go="#cenario">Cenário</button>
+        <button class="chip" data-go="#escopo">Escopo</button>
+        <button class="chip" data-go="#planejamento">Planejamento</button>
+        <button class="chip" data-go="#estrutura">Estrutura & Materiais</button>
+        <button class="chip" data-go="#normas">Normas</button>
+        <button class="chip primary" id="btnPrint">Imprimir / PDF</button>
+      </nav>
+    </header>
+
+    <section class="hero" id="visao">
+      <div class="heroGrid">
+        <div>
+          <div class="kicker">
+            <span class="badge"><span class="dot"></span> Foco inicial: aplicações não estruturais (seguras e escaláveis)</span>
+            <span class="badge">Proponente: <b style="color:rgba(255,255,255,.92)">Construtora Ouro Verde</b></span>
+            <span class="badge">Área: <b style="color:rgba(255,255,255,.92)">Infraestrutura urbana sustentável</b></span>
+          </div>
+
+          <h2>Transformar vidro “problema” em <span style="color:var(--accent)">obra pronta</span> — com padrão técnico, laudo e caminho até licitação.</h2>
+          <p>
+            A missão é simples e poderosa: criar uma unidade local que recebe vidro, processa com controle granulométrico,
+            fabrica lotes-piloto e valida desempenho em ensaios. Aí a gente chega na prefeitura com protótipo na mão,
+            memorial técnico, planilha, cronograma e ART — pronto pra entrar no jogo da licitação com segurança.
+          </p>
+
+          <div class="heroActions">
+            <button class="btn primary" data-go="#planejamento">
+              <span class="ico">▶</span> Começar do zero (planejamento)
+            </button>
+            <button class="btn" data-go="#timeline">
+              <span class="ico">⎈</span> Linha do tempo completa
+            </button>
+            <button class="btn" data-go="#checklist">
+              <span class="ico">✓</span> Checklist de aprovação e compra
+            </button>
+          </div>
+        </div>
+
+        <aside class="panel" aria-label="Resumo executivo">
+          <h3>Resumo executivo</h3>
+          <div class="kv">
+            <div class="row">
+              <div class="tag">Produto</div>
+              <div class="val">Pisos intertravados, pisos drenantes/permeáveis e mobiliário urbano (praças, calçadas, escolas).</div>
+            </div>
+            <div class="row">
+              <div class="tag">Matéria</div>
+              <div class="val">Vidro processado (triagem → trituração → peneiramento → armazenamento controlado).</div>
+            </div>
+            <div class="row">
+              <div class="tag">Estratégia</div>
+              <div class="val">Começar em <b>não estrutural</b> (menos risco, mais velocidade, normatização mais objetiva).</div>
+            </div>
+            <div class="row">
+              <div class="tag">Meta</div>
+              <div class="val">Pilotar, ensaiar, emitir laudo e virar fornecedor apto em licitação (Lei 14.133).</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="grid" id="cenario">
+      <article class="card">
+        <h3>🌎 Cenário (por que isso é agora?)</h3>
+        <p>
+          O Brasil recicla pouco e ainda importa resíduo; na Amazônia, o problema vira “bomba ambiental”
+          quando a destinação é inadequada. No Pará, além da logística, falta mercado estruturado e separação na fonte
+          — então a solução tem que ser local, simples de operar e com saída comercial clara.
+        </p>
+        <details>
+          <summary>O que isso muda na prática?</summary>
+          <p>
+            Muda tudo. Se o município compra piso/obra todo ano, a gente encaixa um produto sustentável
+            com performance medida. Isso vira argumento técnico + econômico + ambiental na mesa de decisão.
+          </p>
+        </details>
+      </article>
+
+      <article class="card">
+        <h3>🎯 Objetivos do projeto (o “porquê” e o “pra quê”)</h3>
+        <ul>
+          <li>Reduzir volume de resíduos destinados a aterros/lixões.</li>
+          <li>Promover economia circular no âmbito municipal.</li>
+          <li>Diminuir custo de manutenção urbana no médio/longo prazo.</li>
+          <li>Gerar emprego local e formalização da cadeia de coleta/processamento.</li>
+          <li>Contribuir com sustentabilidade e drenagem urbana (piso drenante/permeável).</li>
+        </ul>
+      </article>
+    </div>
+
+    <hr class="divider" />
+
+    <section class="grid" id="escopo">
+      <article class="card">
+        <h3>🧱 Escopo — o que a gente vai entregar</h3>
+        <details open>
+          <summary>Etapa 1 — Unidade de processamento (o “coração” do projeto)</summary>
+          <ul>
+            <li>Coleta seletiva de vidro no município</li>
+            <li>Triagem e separação por tipo</li>
+            <li>Trituração/moagem</li>
+            <li>Classificação granulométrica</li>
+            <li>Armazenamento controlado do material processado</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>Etapa 2 — Lotes piloto + ensaios técnicos</summary>
+          <ul>
+            <li>Produção piloto de blocos e pisos</li>
+            <li>Ensaios de resistência à compressão</li>
+            <li>Absorção de água</li>
+            <li>Abrasão</li>
+            <li>Permeabilidade (quando aplicável)</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>Etapa 3 — Projeto executivo (documentos “de guerra”)</summary>
+          <ul>
+            <li>Memorial descritivo</li>
+            <li>Planilha orçamentária</li>
+            <li>Cronograma físico-financeiro</li>
+            <li>Especificação técnica do material</li>
+            <li>ART (Anotação de Responsabilidade Técnica)</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>Etapa 4 — Habilitação para licitação</summary>
+          <ul>
+            <li>Regularidade fiscal</li>
+            <li>Qualificação técnica</li>
+            <li>Capacidade operacional</li>
+            <li>Comprovação de fornecimento conforme norma</li>
+            <li>Registro no CREA</li>
+          </ul>
+        </details>
+      </article>
+
+      <article class="card">
+        <h3>⚙️ Como o vidro entra no “traço” (sem maluquice)</h3>
+        <p>
+          Aqui é o pulo do gato: o vidro entra <b>processado e classificado</b> (granulometria controlada),
+          substituindo <b>uma parte</b> do agregado miúdo. A ideia é performance + repetibilidade.
+        </p>
+
+        <div class="twoCols">
+          <div class="callout">
+            <b>Processamento controlado</b>
+            <p>Triagem → remoção de contaminantes → trituração (britador/moinho) → peneiramento → (lavagem se necessário).</p>
+          </div>
+          <div class="callout">
+            <b>Uso com segurança</b>
+            <p>Aplicações <b>não estruturais</b> (calçadas, pisos, praças, mobiliário urbano). Evita risco de RAS em estrutural.</p>
+          </div>
+        </div>
+
+        <div class="mini" aria-label="Dosagem típica (exemplo)">
+Cimento: 1 parte
+Areia natural: 2 a 3 partes
+Vidro moído: substituindo parte da areia
+Brita: 2 partes
+Água: relação a/c ~0,45–0,55
+
+Substituição parcial (referência do projeto):
+- 10% a 30% da areia natural (faixa)
+- ~15% a 20% do agregado miúdo total
+        </div>
+
+        <p style="margin-top:10px">
+          A lógica aqui é “industrializar” o processo: se a granulometria varia, o produto varia.
+          Então a unidade de processamento é o que dá consistência e dá coragem pra prefeitura comprar.
+        </p>
+      </article>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="card" id="planejamento">
+      <h3>🧠 A real: por onde a gente começa (planejamento inteligente, sem queimar dinheiro)</h3>
+      <p>
+        O começo não é comprar máquina — é montar o “pacote de aprovação”. A compra vem depois, como consequência.
+        Aqui vai o roteiro que te coloca na posição de <b>projeto aprovado</b> → <b>estrutura montada</b> → <b>produto validado</b> → <b>licitação</b>.
+      </p>
+
+      <div class="timeline" id="checklist">
+        <div class="step">
+          <div class="num">0</div>
+          <div>
+            <h4>Definir o modelo de execução (rápido e realista)</h4>
+            <p class="muted">
+              Escolha o “primeiro produto campeão” (ex.: piso intertravado padrão + uma linha drenante).
+              Define espessuras, padrões, e aonde vamos pilotar (praça pequena, calçada teste, escola).
+            </p>
+            <div class="meta">
+              <span class="pill info">Saída comercial clara</span>
+              <span class="pill warn">Evitar começar “com tudo”</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">1</div>
+          <div>
+            <h4>Montar o dossiê de aprovação (o que convence prefeitura/parceiro)</h4>
+            <p>
+              Um kit enxuto e matador: resumo executivo, justificativa ambiental, plano operacional,
+              estimativa de custos, ganhos de manutenção, e o cronograma das fases.
+            </p>
+            <div class="meta">
+              <span class="pill ok">Documento “vitrine”</span>
+              <span class="pill info">Base pra captação</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">2</div>
+          <div>
+            <h4>Parcerias e alimentação da cadeia (antes da máquina)</h4>
+            <p>
+              Fechar parceria com cooperativas/coleta seletiva e definir logística mínima: ponto de recebimento,
+              armazenamento seguro, triagem e fluxo de material.
+            </p>
+            <div class="meta">
+              <span class="pill info">Acordo com cooperativas</span>
+              <span class="pill warn">Sem isso, máquina para</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">3</div>
+          <div>
+            <h4>Aprovação → destravar estrutura física e compras</h4>
+            <p>
+              Com o projeto aprovado (prefeitura/parceiro/financiamento), aí sim você entra em:
+              <b>espaço físico adequado</b>, <b>registro ambiental municipal</b> e <b>aquisição de britador/triturador</b>.
+            </p>
+            <div class="meta">
+              <span class="pill ok">Compra com propósito</span>
+              <span class="pill info">Estruturação técnica (0–3 meses)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="twoCols">
+        <div class="callout">
+          <b>Tradução do “começo certo”</b>
+          <p>Primeiro a gente <b>vence no papel</b> (aprovação + parceria + cronograma). Depois a gente <b>vence na operação</b> (estrutura + equipamento + piloto).</p>
+        </div>
+        <div class="callout">
+          <b>O que NÃO fazer no início</b>
+          <p>Comprar equipamento caro sem fluxo garantido de vidro, sem local pronto, e sem plano de ensaios. Isso vira sucata cara.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" id="estrutura">
+      <article class="card">
+        <h3>🏭 Estrutura física mínima (pra funcionar de verdade)</h3>
+        <ul>
+          <li><b>Área de recebimento</b> (vidro bruto, com contenção e segurança)</li>
+          <li><b>Área de triagem</b> (separação + retirada de contaminantes)</li>
+          <li><b>Área de trituração/moagem</b> (britador/moinho)</li>
+          <li><b>Peneiras/classificação</b> (granulometria padronizada)</li>
+          <li><b>Estoque controlado</b> (material processado por lote)</li>
+          <li><b>EPIs + segurança</b> (vidro é traiçoeiro — aqui não tem improviso)</li>
+        </ul>
+        <details>
+          <summary>Checklist de segurança (rápido e sério)</summary>
+          <p>
+            EPIs (óculos, luvas anticorte, protetor auricular, máscara), sinalização,
+            controle de poeira, armazenamento por big bags/lotes e área limpa pra evitar contaminação cruzada.
+          </p>
+        </details>
+      </article>
+
+      <article class="card">
+        <h3>🧰 Materiais & equipamentos (o “kit” do projeto)</h3>
+        <ul>
+          <li>Britador de mandíbula ou moinho de impacto</li>
+          <li>Peneiras para classificação granulométrica</li>
+          <li>Local de armazenamento controlado</li>
+          <li>Fluxo de triagem (remoção de metal/plástico/papel)</li>
+          <li>Lavagem (se necessário) para remover excesso de pó</li>
+        </ul>
+        <details>
+          <summary>Por que granulometria é rei?</summary>
+          <p>
+            Porque pavimento bom é repetição: mesma curva granulométrica → mesma compactação → mesma resistência.
+            Sem isso, cada lote vira uma surpresa (e prefeitura odeia surpresa).
+          </p>
+        </details>
+      </article>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="card" id="timeline">
+      <h3>🗺️ Linha do tempo (do 0 ao contrato)</h3>
+      <p>
+        Aqui está o mapa completo (em meses). A gente começa “enxuto”, valida com ensaio e só então escala.
+      </p>
+
+      <div class="timeline">
+        <div class="step">
+          <div class="num">A</div>
+          <div>
+            <h4>Fase 1 — Estruturação técnica (0 a 3 meses)</h4>
+            <ul>
+              <li>Formalização jurídica da empresa</li>
+              <li>Aquisição de britador/triturador de vidro</li>
+              <li>Implantação de espaço físico adequado</li>
+              <li>Registro ambiental municipal</li>
+              <li>Parcerias com cooperativas de reciclagem</li>
+            </ul>
+            <div class="meta">
+              <span class="pill info">Operação base</span>
+              <span class="pill ok">“Rodar o primeiro lote”</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">B</div>
+          <div>
+            <h4>Fase 2 — Validação técnica (3 a 6 meses)</h4>
+            <ul>
+              <li>Produção piloto</li>
+              <li>Ensaios laboratoriais</li>
+              <li>Ajuste de traço do concreto</li>
+              <li>Emissão de laudo técnico</li>
+            </ul>
+            <div class="meta">
+              <span class="pill ok">Laudo na mão</span>
+              <span class="pill warn">Sem laudo, sem escala</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">C</div>
+          <div>
+            <h4>Fase 3 — Apresentação institucional (6 a 8 meses)</h4>
+            <ul>
+              <li>Entrega de memorial técnico à prefeitura</li>
+              <li>Apresentação de protótipos</li>
+              <li>Demonstração de viabilidade econômica</li>
+              <li>Inclusão em projetos de revitalização urbana</li>
+            </ul>
+            <div class="meta">
+              <span class="pill info">Produto “apresentável”</span>
+              <span class="pill ok">Entrada em projetos</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="num">D</div>
+          <div>
+            <h4>Fase 4 — Licitação e contrato</h4>
+            <ul>
+              <li>Acompanhamento de edital</li>
+              <li>Proposta técnica e comercial</li>
+              <li>Comprovação de atendimento às normas</li>
+              <li>Assinatura de contrato e execução</li>
+            </ul>
+            <div class="meta">
+              <span class="pill ok">Escala</span>
+              <span class="pill info">Lei 14.133</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" id="normas">
+      <article class="card">
+        <h3>📚 Normas e conformidade (blindagem técnica)</h3>
+        <p>
+          A ideia é trabalhar com base normativa e deixar claro que o foco é <b>não estrutural</b>.
+          Isso reduz risco, acelera aprovação e encaixa melhor na realidade municipal.
+        </p>
+        <ul>
+          <li>ABNT NBR 9781 — peças de concreto para pavimentação</li>
+          <li>ABNT NBR 15116 — agregados reciclados para concreto sem função estrutural</li>
+          <li>ABNT NBR 16416 — pavimentos permeáveis de concreto</li>
+          <li>ABNT NBR 6118 / 15575 (como referência de boas práticas e desempenho)</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>🏛️ O que a prefeitura ganha (argumento de venda)</h3>
+        <ul>
+          <li>Redução de resíduos sólidos</li>
+          <li>Valorização ambiental e imagem institucional</li>
+          <li>Economia local (emprego e renda)</li>
+          <li>Menos custo de manutenção urbana</li>
+          <li>Aderência à Política Nacional de Resíduos Sólidos</li>
+          <li>Possibilidade de captação via fundos sustentáveis</li>
+        </ul>
+        <details>
+          <summary>Pitch de 20 segundos (pra reunião)</summary>
+          <p>
+            “A Ouro Verde transforma vidro descartado em piso e mobiliário urbano com laudo e norma.
+            É economia circular com ganho de manutenção, drenagem urbana e geração de emprego local —
+            pronto pra entrar em edital e entregar obra com padrão.”
+          </p>
+        </details>
+      </article>
+    </section>
+
+    <footer class="footer" role="contentinfo">
+      <small>
+        Versão: 1.0 • Documento em formato web para apresentação, impressão e evolução do projeto.
+        <br/>Dica: depois a gente transforma isso em PWA (offline) e vira o “painel oficial” da Ouro Verde.
+      </small>
+
+      <div class="progress" aria-label="Progresso do projeto">
+        <small id="progLabel">Progresso: 0%</small>
+        <div class="bar" aria-hidden="true"><div class="fill" id="fill"></div></div>
+        <button class="btn" id="btnNext"><span class="ico">+</span> Avançar fase</button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Navegação suave
+    document.querySelectorAll("[data-go]").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const sel = btn.getAttribute("data-go");
+        const el = document.querySelector(sel);
+        if(!el) return;
+        el.scrollIntoView({behavior:"smooth", block:"start"});
+      });
+    });
+
+    // Print / PDF
+    document.getElementById("btnPrint").addEventListener("click", ()=> window.print());
+
+    // Mini "progress tracker" (apresentação)
+    const phases = [
+      {name:"Planejamento & dossiê", pct:10},
+      {name:"Parcerias & fluxo de vidro", pct:25},
+      {name:"Estrutura + registro + compra", pct:40},
+      {name:"Piloto & ensaios", pct:60},
+      {name:"Laudo + projeto executivo + ART", pct:78},
+      {name:"Apresentação institucional", pct:88},
+      {name:"Licitação & contrato", pct:100},
+    ];
+    let idx = 0;
+
+    const fill = document.getElementById("fill");
+    const progLabel = document.getElementById("progLabel");
+
+    function renderProgress(){
+      const p = phases[idx];
+      fill.style.width = p.pct + "%";
+      progLabel.textContent = `Progresso: ${p.pct}% • ${p.name}`;
+    }
+
+    document.getElementById("btnNext").addEventListener("click", ()=>{
+      idx = Math.min(idx+1, phases.length-1);
+      renderProgress();
+    });
+
+    renderProgress();
+  </script>
+</body>
+</html>
