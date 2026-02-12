@@ -8,23 +8,28 @@
 
   <style>
     :root{
-      --bg: #0b1020;
-      --bg2:#0e1630;
-      --card:#0f1b3a;
-      --line:#1b2a58;
-      --text:#eaf0ff;
-      --muted:#a9b7e3;
-      --accent:#4aa3ff;
-      --accent2:#7c4dff;
-      --ok:#2de39f;
-      --warn:#ffcc66;
-      --bad:#ff5c7a;
+      /* Light theme */
+      --bg: #f6f8fc;
+      --paper: #ffffff;
+      --paper2: #f2f5ff;
+      --line: #dbe3f3;
+
+      --text: #0f172a;
+      --muted: #475569;
+
+      --accent: #1d4ed8;
+      --accent2:#4f46e5;
+
+      --ok:#059669;
+      --warn:#b45309;
+      --bad:#be123c;
 
       --radius: 18px;
-      --shadow: 0 18px 50px rgba(0,0,0,.35);
-      --shadow2: 0 10px 25px rgba(0,0,0,.25);
+      --shadow: 0 18px 45px rgba(15,23,42,.10);
+      --shadow2: 0 10px 25px rgba(15,23,42,.08);
+
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", "Apple Color Emoji","Segoe UI Emoji";
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue";
     }
 
     *{ box-sizing: border-box; }
@@ -34,30 +39,33 @@
       font-family: var(--sans);
       color: var(--text);
       background:
-        radial-gradient(1200px 600px at 15% 10%, rgba(74,163,255,.25), transparent 60%),
-        radial-gradient(900px 500px at 85% 20%, rgba(124,77,255,.18), transparent 60%),
-        radial-gradient(800px 600px at 60% 90%, rgba(45,227,159,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg), #070a14 60%, #060812);
+        radial-gradient(1000px 500px at 15% 10%, rgba(29,78,216,.10), transparent 60%),
+        radial-gradient(900px 500px at 85% 20%, rgba(79,70,229,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg), #eef3ff 60%, var(--bg));
       overflow-x:hidden;
     }
 
     a{ color: var(--accent); text-decoration: none; }
     a:hover{ text-decoration: underline; }
 
+    /* ---- Layout: leitura bem enquadrada ---- */
     .wrap{
-      width:min(1150px, 92vw);
-      margin: 28px auto 70px;
+      width: min(1120px, 92vw);
+      margin: 26px auto 70px;
+    }
+    .readable{
+      max-width: 78ch; /* enquadra o texto: não deixa linha ficar gigante */
     }
 
-    /* Top bar */
+    /* ---- Topbar ---- */
     .topbar{
       position: sticky;
       top: 0;
       z-index: 20;
       backdrop-filter: blur(10px);
-      background: rgba(6,8,18,.62);
-      border: 1px solid rgba(255,255,255,.07);
-      box-shadow: 0 10px 25px rgba(0,0,0,.20);
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(15,23,42,.10);
+      box-shadow: 0 10px 25px rgba(15,23,42,.08);
       border-radius: 20px;
       padding: 10px 12px;
       margin-bottom: 18px;
@@ -72,10 +80,10 @@
       gap:10px;
       padding: 6px 10px;
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: linear-gradient(135deg, rgba(74,163,255,.14), rgba(124,77,255,.10));
+      border: 1px solid rgba(15,23,42,.10);
+      background: linear-gradient(135deg, rgba(29,78,216,.08), rgba(79,70,229,.06));
       box-shadow: var(--shadow2);
-      min-width: 220px;
+      min-width: 240px;
     }
 
     .logo{
@@ -83,10 +91,10 @@
       height: 34px;
       border-radius: 10px;
       background:
-        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.35), transparent 55%),
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.75), transparent 55%),
         linear-gradient(135deg, var(--accent), var(--accent2));
       position: relative;
-      box-shadow: 0 12px 30px rgba(74,163,255,.18);
+      box-shadow: 0 12px 30px rgba(29,78,216,.18);
     }
 
     .logo:after{
@@ -94,23 +102,22 @@
       position:absolute;
       inset: 7px;
       border-radius: 8px;
-      border: 1px solid rgba(255,255,255,.22);
+      border: 1px solid rgba(255,255,255,.45);
       transform: rotate(10deg);
     }
 
     .brand h1{
-      font-size: 13px;
+      font-size: 12px;
       margin:0;
-      line-height:1.1;
-      letter-spacing: .5px;
+      line-height:1.15;
+      letter-spacing: .6px;
       text-transform: uppercase;
-      opacity:.95;
     }
     .brand p{
       margin:2px 0 0;
       font-size: 12px;
       color: var(--muted);
-      line-height:1.2;
+      line-height:1.25;
     }
 
     .nav{
@@ -123,8 +130,8 @@
     }
 
     .chip{
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.85);
       color: var(--text);
       padding: 8px 10px;
       border-radius: 999px;
@@ -133,20 +140,20 @@
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
       user-select:none;
     }
-    .chip:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(74,163,255,.28); }
+    .chip:hover{ transform: translateY(-1px); border-color: rgba(29,78,216,.28); }
     .chip.primary{
-      background: linear-gradient(135deg, rgba(74,163,255,.22), rgba(124,77,255,.18));
-      border-color: rgba(74,163,255,.35);
+      background: linear-gradient(135deg, rgba(29,78,216,.14), rgba(79,70,229,.12));
+      border-color: rgba(29,78,216,.25);
     }
 
-    /* Hero */
+    /* ---- Hero ---- */
     .hero{
       border-radius: 26px;
-      border: 1px solid rgba(255,255,255,.10);
+      border: 1px solid rgba(15,23,42,.10);
       background:
-        radial-gradient(900px 360px at 20% 15%, rgba(74,163,255,.18), transparent 65%),
-        radial-gradient(700px 320px at 85% 30%, rgba(124,77,255,.16), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+        radial-gradient(900px 360px at 20% 15%, rgba(29,78,216,.10), transparent 65%),
+        radial-gradient(700px 320px at 85% 30%, rgba(79,70,229,.10), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
       box-shadow: var(--shadow);
       padding: 22px;
       overflow:hidden;
@@ -155,7 +162,7 @@
 
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.4fr .9fr;
+      grid-template-columns: 1.45fr .9fr;
       gap: 16px;
       align-items: stretch;
     }
@@ -173,8 +180,8 @@
       gap:8px;
       padding: 8px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.85);
       font-size: 12px;
       color: var(--muted);
     }
@@ -183,20 +190,21 @@
       height: 8px;
       border-radius: 50%;
       background: var(--ok);
-      box-shadow: 0 0 0 6px rgba(45,227,159,.10);
+      box-shadow: 0 0 0 6px rgba(5,150,105,.10);
     }
 
-    .hero h2{
-      font-size: clamp(20px, 2.6vw, 34px);
+    /* Tipografia bem “enquadrada” */
+    h2{
+      font-size: clamp(22px, 2.6vw, 34px);
       margin: 10px 0 6px;
-      line-height:1.1;
-      letter-spacing: .2px;
+      line-height: 1.12;
+      letter-spacing: -0.2px;
     }
-    .hero p{
+    .lead{
       margin: 0;
       color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
+      font-size: 15px;
+      line-height: 1.75;
     }
 
     .heroActions{
@@ -208,8 +216,8 @@
 
     .btn{
       appearance:none;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.9);
       color: var(--text);
       padding: 10px 12px;
       border-radius: 14px;
@@ -220,27 +228,27 @@
       align-items:center;
       gap:10px;
     }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(74,163,255,.30); }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(29,78,216,.25); }
     .btn.primary{
-      background: linear-gradient(135deg, rgba(74,163,255,.25), rgba(124,77,255,.22));
-      border-color: rgba(74,163,255,.35);
+      background: linear-gradient(135deg, rgba(29,78,216,.14), rgba(79,70,229,.12));
+      border-color: rgba(29,78,216,.22);
     }
     .btn .ico{
       width: 18px; height: 18px;
       display:inline-grid; place-items:center;
       border-radius: 8px;
-      background: rgba(0,0,0,.20);
-      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(15,23,42,.06);
+      border: 1px solid rgba(15,23,42,.10);
       font-family: var(--mono);
       font-size: 11px;
-      color: rgba(255,255,255,.85);
+      color: rgba(15,23,42,.85);
     }
 
-    /* Right hero card */
+    /* Right hero panel */
     .panel{
       border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.05));
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.86);
       padding: 16px;
       box-shadow: var(--shadow2);
       height: 100%;
@@ -248,39 +256,36 @@
 
     .panel h3{
       margin:0 0 10px;
-      font-size: 13px;
-      color: rgba(255,255,255,.9);
-      letter-spacing: .4px;
+      font-size: 12px;
+      color: rgba(15,23,42,.85);
+      letter-spacing: .6px;
       text-transform: uppercase;
     }
 
-    .kv{
-      display:grid;
-      gap:10px;
-    }
+    .kv{ display:grid; gap:10px; }
     .kv .row{
       display:flex;
       gap:10px;
       align-items:flex-start;
       padding: 10px;
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(15,23,42,.08);
+      background: rgba(15,23,42,.02);
     }
     .kv .tag{
-      min-width: 90px;
+      min-width: 92px;
       font-size: 11px;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: .4px;
+      letter-spacing: .5px;
     }
     .kv .val{
       font-size: 13px;
-      color: rgba(255,255,255,.92);
-      line-height:1.35;
+      color: rgba(15,23,42,.92);
+      line-height:1.45;
     }
 
-    /* Sections */
+    /* Cards / sections */
     .grid{
       margin-top: 18px;
       display:grid;
@@ -289,26 +294,27 @@
     }
     .card{
       border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.86);
       box-shadow: var(--shadow2);
       padding: 16px;
     }
     .card h3{
       margin:0 0 10px;
       font-size: 14px;
-      letter-spacing:.2px;
+      letter-spacing: .1px;
+      line-height: 1.2;
     }
     .card p, .card li{
       color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
+      font-size: 14px;
+      line-height: 1.75;
     }
     ul{ margin: 10px 0 0; padding-left: 18px; }
 
     .divider{
       height:1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+      background: linear-gradient(90deg, transparent, rgba(15,23,42,.18), transparent);
       margin: 18px 0;
       border:0;
     }
@@ -325,12 +331,12 @@
       gap: 10px;
       padding: 12px;
       border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.09);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.92);
       position:relative;
       overflow:hidden;
     }
-    .step:hover{ border-color: rgba(74,163,255,.30); }
+    .step:hover{ border-color: rgba(29,78,216,.25); }
 
     .num{
       width: 44px;
@@ -338,47 +344,51 @@
       border-radius: 16px;
       display:grid;
       place-items:center;
-      background: rgba(0,0,0,.22);
-      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(29,78,216,.06);
+      border: 1px solid rgba(29,78,216,.14);
       font-family: var(--mono);
-      color: rgba(255,255,255,.9);
-      font-weight: 600;
+      color: rgba(15,23,42,.90);
+      font-weight: 700;
       letter-spacing:.2px;
     }
     .step h4{
       margin:0;
       font-size: 14px;
+      line-height: 1.25;
     }
+    .step .muted{ color: var(--muted); margin: 6px 0 0; }
+
     .meta{
       display:flex;
       gap:8px;
       flex-wrap: wrap;
-      margin-top: 6px;
+      margin-top: 8px;
     }
     .pill{
       font-size: 11px;
-      color: rgba(255,255,255,.88);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
+      color: rgba(15,23,42,.88);
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(15,23,42,.03);
       padding: 6px 8px;
       border-radius: 999px;
     }
-    .pill.ok{ border-color: rgba(45,227,159,.35); background: rgba(45,227,159,.10); }
-    .pill.warn{ border-color: rgba(255,204,102,.35); background: rgba(255,204,102,.10); }
-    .pill.info{ border-color: rgba(74,163,255,.35); background: rgba(74,163,255,.10); }
+    .pill.ok{ border-color: rgba(5,150,105,.25); background: rgba(5,150,105,.08); }
+    .pill.warn{ border-color: rgba(180,83,9,.25); background: rgba(180,83,9,.08); }
+    .pill.info{ border-color: rgba(29,78,216,.25); background: rgba(29,78,216,.08); }
 
     details{
       border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(15,23,42,.02);
       padding: 10px 12px;
     }
     summary{
       cursor:pointer;
       list-style:none;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 13px;
-      color: rgba(255,255,255,.92);
+      color: rgba(15,23,42,.92);
+      line-height: 1.3;
     }
     summary::-webkit-details-marker{ display:none; }
     details p{ margin: 10px 0 0; }
@@ -393,29 +403,30 @@
     .callout{
       border-radius: 18px;
       padding: 12px;
-      border: 1px solid rgba(74,163,255,.25);
-      background: linear-gradient(135deg, rgba(74,163,255,.12), rgba(124,77,255,.08));
+      border: 1px solid rgba(29,78,216,.18);
+      background: linear-gradient(135deg, rgba(29,78,216,.07), rgba(79,70,229,.05));
     }
-    .callout b{ color: rgba(255,255,255,.95); }
+    .callout b{ color: rgba(15,23,42,.95); }
     .callout p{ margin: 6px 0 0; }
 
     .mini{
       font-family: var(--mono);
       font-size: 12px;
-      color: rgba(255,255,255,.86);
+      color: rgba(15,23,42,.90);
       padding: 10px;
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(15,23,42,.02);
       overflow:auto;
-      max-height: 210px;
+      max-height: 220px;
+      line-height: 1.55;
     }
 
     .footer{
       margin-top: 18px;
       border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.86);
       padding: 14px 16px;
       display:flex;
       gap: 12px;
@@ -423,7 +434,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
     }
-    .footer small{ color: var(--muted); }
+    .footer small{ color: var(--muted); line-height: 1.6; }
 
     .progress{
       display:flex; gap:10px; align-items:center;
@@ -432,8 +443,8 @@
       width: 180px;
       height: 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.20);
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(15,23,42,.04);
       overflow:hidden;
     }
     .fill{
@@ -444,7 +455,6 @@
       transition: width .35s ease;
     }
 
-    /* Responsive */
     @media (max-width: 920px){
       .heroGrid{ grid-template-columns: 1fr; }
       .grid{ grid-template-columns: 1fr; }
@@ -452,21 +462,17 @@
       .brand{ min-width: auto; }
     }
 
-    /* Print */
+    /* Print: limpo, “cara de documento” */
     @media print{
-      body{
-        background: #ffffff !important;
-        color: #111 !important;
-      }
+      body{ background:#fff !important; }
       .topbar, .heroActions, .chip, .footer .progress { display:none !important; }
       .wrap{ width: 100%; margin: 0; }
       .hero, .card, .panel, details, .step, .footer{
         box-shadow: none !important;
         background: #fff !important;
-        border: 1px solid #ddd !important;
-        color: #111 !important;
+        border: 1px solid #d7dbe6 !important;
       }
-      .card p, .card li, .hero p, .kv .val, .kv .tag, small{ color: #333 !important; }
+      .card p, .card li, .lead, .kv .val, .kv .tag, small{ color: #20242e !important; }
       a{ color:#0b5bd3 !important; text-decoration: underline !important; }
     }
   </style>
@@ -496,18 +502,19 @@
 
     <section class="hero" id="visao">
       <div class="heroGrid">
-        <div>
+        <div class="readable">
           <div class="kicker">
             <span class="badge"><span class="dot"></span> Foco inicial: aplicações não estruturais (seguras e escaláveis)</span>
-            <span class="badge">Proponente: <b style="color:rgba(255,255,255,.92)">Construtora Ouro Verde</b></span>
-            <span class="badge">Área: <b style="color:rgba(255,255,255,.92)">Infraestrutura urbana sustentável</b></span>
+            <span class="badge">Proponente: <b style="color:rgba(15,23,42,.95)">Construtora Ouro Verde</b></span>
+            <span class="badge">Área: <b style="color:rgba(15,23,42,.95)">Infraestrutura urbana sustentável</b></span>
           </div>
 
           <h2>Transformar vidro “problema” em <span style="color:var(--accent)">obra pronta</span> — com padrão técnico, laudo e caminho até licitação.</h2>
-          <p>
+
+          <p class="lead">
             A missão é simples e poderosa: criar uma unidade local que recebe vidro, processa com controle granulométrico,
-            fabrica lotes-piloto e valida desempenho em ensaios. Aí a gente chega na prefeitura com protótipo na mão,
-            memorial técnico, planilha, cronograma e ART — pronto pra entrar no jogo da licitação com segurança.
+            fabrica lotes-piloto e valida desempenho em ensaios. Depois: protótipo na mão + memorial + planilha + cronograma + ART —
+            pronto pra entrar em licitação com segurança.
           </p>
 
           <div class="heroActions">
@@ -536,7 +543,7 @@
             </div>
             <div class="row">
               <div class="tag">Estratégia</div>
-              <div class="val">Começar em <b>não estrutural</b> (menos risco, mais velocidade, normatização mais objetiva).</div>
+              <div class="val">Começar em <b>não estrutural</b> (menos risco, mais velocidade, normatização objetiva).</div>
             </div>
             <div class="row">
               <div class="tag">Meta</div>
@@ -550,23 +557,23 @@
     <div class="grid" id="cenario">
       <article class="card">
         <h3>🌎 Cenário (por que isso é agora?)</h3>
-        <p>
-          O Brasil recicla pouco e ainda importa resíduo; na Amazônia, o problema vira “bomba ambiental”
-          quando a destinação é inadequada. No Pará, além da logística, falta mercado estruturado e separação na fonte
-          — então a solução tem que ser local, simples de operar e com saída comercial clara.
+        <p class="readable">
+          O Brasil recicla pouco e ainda importa resíduo; na Amazônia, o problema vira “bomba ambiental” quando a destinação é inadequada.
+          No Pará, além da logística, falta mercado estruturado e separação na fonte — então a solução tem que ser local, simples de operar
+          e com saída comercial clara.
         </p>
         <details>
           <summary>O que isso muda na prática?</summary>
-          <p>
-            Muda tudo. Se o município compra piso/obra todo ano, a gente encaixa um produto sustentável
-            com performance medida. Isso vira argumento técnico + econômico + ambiental na mesa de decisão.
+          <p class="readable">
+            Muda tudo. Se o município compra piso/obra todo ano, a gente encaixa um produto sustentável com performance medida.
+            Isso vira argumento técnico + econômico + ambiental na mesa de decisão.
           </p>
         </details>
       </article>
 
       <article class="card">
         <h3>🎯 Objetivos do projeto (o “porquê” e o “pra quê”)</h3>
-        <ul>
+        <ul class="readable">
           <li>Reduzir volume de resíduos destinados a aterros/lixões.</li>
           <li>Promover economia circular no âmbito municipal.</li>
           <li>Diminuir custo de manutenção urbana no médio/longo prazo.</li>
@@ -581,9 +588,10 @@
     <section class="grid" id="escopo">
       <article class="card">
         <h3>🧱 Escopo — o que a gente vai entregar</h3>
+
         <details open>
           <summary>Etapa 1 — Unidade de processamento (o “coração” do projeto)</summary>
-          <ul>
+          <ul class="readable">
             <li>Coleta seletiva de vidro no município</li>
             <li>Triagem e separação por tipo</li>
             <li>Trituração/moagem</li>
@@ -594,7 +602,7 @@
 
         <details>
           <summary>Etapa 2 — Lotes piloto + ensaios técnicos</summary>
-          <ul>
+          <ul class="readable">
             <li>Produção piloto de blocos e pisos</li>
             <li>Ensaios de resistência à compressão</li>
             <li>Absorção de água</li>
@@ -605,7 +613,7 @@
 
         <details>
           <summary>Etapa 3 — Projeto executivo (documentos “de guerra”)</summary>
-          <ul>
+          <ul class="readable">
             <li>Memorial descritivo</li>
             <li>Planilha orçamentária</li>
             <li>Cronograma físico-financeiro</li>
@@ -616,7 +624,7 @@
 
         <details>
           <summary>Etapa 4 — Habilitação para licitação</summary>
-          <ul>
+          <ul class="readable">
             <li>Regularidade fiscal</li>
             <li>Qualificação técnica</li>
             <li>Capacidade operacional</li>
@@ -628,7 +636,7 @@
 
       <article class="card">
         <h3>⚙️ Como o vidro entra no “traço” (sem maluquice)</h3>
-        <p>
+        <p class="readable">
           Aqui é o pulo do gato: o vidro entra <b>processado e classificado</b> (granulometria controlada),
           substituindo <b>uma parte</b> do agregado miúdo. A ideia é performance + repetibilidade.
         </p>
@@ -636,11 +644,11 @@
         <div class="twoCols">
           <div class="callout">
             <b>Processamento controlado</b>
-            <p>Triagem → remoção de contaminantes → trituração (britador/moinho) → peneiramento → (lavagem se necessário).</p>
+            <p class="readable">Triagem → remoção de contaminantes → trituração (britador/moinho) → peneiramento → (lavagem se necessário).</p>
           </div>
           <div class="callout">
             <b>Uso com segurança</b>
-            <p>Aplicações <b>não estruturais</b> (calçadas, pisos, praças, mobiliário urbano). Evita risco de RAS em estrutural.</p>
+            <p class="readable">Aplicações <b>não estruturais</b> (calçadas, pisos, praças, mobiliário urbano). Evita risco de RAS em estrutural.</p>
           </div>
         </div>
 
@@ -656,7 +664,7 @@ Substituição parcial (referência do projeto):
 - ~15% a 20% do agregado miúdo total
         </div>
 
-        <p style="margin-top:10px">
+        <p class="readable" style="margin-top:10px">
           A lógica aqui é “industrializar” o processo: se a granulometria varia, o produto varia.
           Então a unidade de processamento é o que dá consistência e dá coragem pra prefeitura comprar.
         </p>
@@ -667,9 +675,9 @@ Substituição parcial (referência do projeto):
 
     <section class="card" id="planejamento">
       <h3>🧠 A real: por onde a gente começa (planejamento inteligente, sem queimar dinheiro)</h3>
-      <p>
+      <p class="readable">
         O começo não é comprar máquina — é montar o “pacote de aprovação”. A compra vem depois, como consequência.
-        Aqui vai o roteiro que te coloca na posição de <b>projeto aprovado</b> → <b>estrutura montada</b> → <b>produto validado</b> → <b>licitação</b>.
+        Aqui vai o roteiro: <b>projeto aprovado</b> → <b>estrutura montada</b> → <b>produto validado</b> → <b>licitação</b>.
       </p>
 
       <div class="timeline" id="checklist">
@@ -677,9 +685,9 @@ Substituição parcial (referência do projeto):
           <div class="num">0</div>
           <div>
             <h4>Definir o modelo de execução (rápido e realista)</h4>
-            <p class="muted">
+            <p class="muted readable">
               Escolha o “primeiro produto campeão” (ex.: piso intertravado padrão + uma linha drenante).
-              Define espessuras, padrões, e aonde vamos pilotar (praça pequena, calçada teste, escola).
+              Define espessuras, padrões e aonde vamos pilotar (praça pequena, calçada teste, escola).
             </p>
             <div class="meta">
               <span class="pill info">Saída comercial clara</span>
@@ -692,9 +700,9 @@ Substituição parcial (referência do projeto):
           <div class="num">1</div>
           <div>
             <h4>Montar o dossiê de aprovação (o que convence prefeitura/parceiro)</h4>
-            <p>
-              Um kit enxuto e matador: resumo executivo, justificativa ambiental, plano operacional,
-              estimativa de custos, ganhos de manutenção, e o cronograma das fases.
+            <p class="muted readable">
+              Kit enxuto: resumo executivo, justificativa ambiental, plano operacional, estimativa de custos,
+              ganhos de manutenção e cronograma das fases.
             </p>
             <div class="meta">
               <span class="pill ok">Documento “vitrine”</span>
@@ -707,7 +715,7 @@ Substituição parcial (referência do projeto):
           <div class="num">2</div>
           <div>
             <h4>Parcerias e alimentação da cadeia (antes da máquina)</h4>
-            <p>
+            <p class="muted readable">
               Fechar parceria com cooperativas/coleta seletiva e definir logística mínima: ponto de recebimento,
               armazenamento seguro, triagem e fluxo de material.
             </p>
@@ -722,9 +730,9 @@ Substituição parcial (referência do projeto):
           <div class="num">3</div>
           <div>
             <h4>Aprovação → destravar estrutura física e compras</h4>
-            <p>
-              Com o projeto aprovado (prefeitura/parceiro/financiamento), aí sim você entra em:
-              <b>espaço físico adequado</b>, <b>registro ambiental municipal</b> e <b>aquisição de britador/triturador</b>.
+            <p class="muted readable">
+              Com o projeto aprovado (prefeitura/parceiro/financiamento), aí sim: <b>espaço físico adequado</b>,
+              <b>registro ambiental municipal</b> e <b>aquisição de britador/triturador</b>.
             </p>
             <div class="meta">
               <span class="pill ok">Compra com propósito</span>
@@ -737,11 +745,11 @@ Substituição parcial (referência do projeto):
       <div class="twoCols">
         <div class="callout">
           <b>Tradução do “começo certo”</b>
-          <p>Primeiro a gente <b>vence no papel</b> (aprovação + parceria + cronograma). Depois a gente <b>vence na operação</b> (estrutura + equipamento + piloto).</p>
+          <p class="readable">Primeiro a gente <b>vence no papel</b> (aprovação + parceria + cronograma). Depois vence na operação (estrutura + equipamento + piloto).</p>
         </div>
         <div class="callout">
           <b>O que NÃO fazer no início</b>
-          <p>Comprar equipamento caro sem fluxo garantido de vidro, sem local pronto, e sem plano de ensaios. Isso vira sucata cara.</p>
+          <p class="readable">Comprar equipamento caro sem fluxo garantido de vidro, sem local pronto e sem plano de ensaios. Isso vira sucata cara.</p>
         </div>
       </div>
     </section>
@@ -749,7 +757,7 @@ Substituição parcial (referência do projeto):
     <section class="grid" id="estrutura">
       <article class="card">
         <h3>🏭 Estrutura física mínima (pra funcionar de verdade)</h3>
-        <ul>
+        <ul class="readable">
           <li><b>Área de recebimento</b> (vidro bruto, com contenção e segurança)</li>
           <li><b>Área de triagem</b> (separação + retirada de contaminantes)</li>
           <li><b>Área de trituração/moagem</b> (britador/moinho)</li>
@@ -759,7 +767,7 @@ Substituição parcial (referência do projeto):
         </ul>
         <details>
           <summary>Checklist de segurança (rápido e sério)</summary>
-          <p>
+          <p class="readable">
             EPIs (óculos, luvas anticorte, protetor auricular, máscara), sinalização,
             controle de poeira, armazenamento por big bags/lotes e área limpa pra evitar contaminação cruzada.
           </p>
@@ -768,7 +776,7 @@ Substituição parcial (referência do projeto):
 
       <article class="card">
         <h3>🧰 Materiais & equipamentos (o “kit” do projeto)</h3>
-        <ul>
+        <ul class="readable">
           <li>Britador de mandíbula ou moinho de impacto</li>
           <li>Peneiras para classificação granulométrica</li>
           <li>Local de armazenamento controlado</li>
@@ -777,9 +785,9 @@ Substituição parcial (referência do projeto):
         </ul>
         <details>
           <summary>Por que granulometria é rei?</summary>
-          <p>
+          <p class="readable">
             Porque pavimento bom é repetição: mesma curva granulométrica → mesma compactação → mesma resistência.
-            Sem isso, cada lote vira uma surpresa (e prefeitura odeia surpresa).
+            Sem isso, cada lote vira surpresa (e prefeitura odeia surpresa).
           </p>
         </details>
       </article>
@@ -789,7 +797,7 @@ Substituição parcial (referência do projeto):
 
     <section class="card" id="timeline">
       <h3>🗺️ Linha do tempo (do 0 ao contrato)</h3>
-      <p>
+      <p class="readable">
         Aqui está o mapa completo (em meses). A gente começa “enxuto”, valida com ensaio e só então escala.
       </p>
 
@@ -798,7 +806,7 @@ Substituição parcial (referência do projeto):
           <div class="num">A</div>
           <div>
             <h4>Fase 1 — Estruturação técnica (0 a 3 meses)</h4>
-            <ul>
+            <ul class="readable">
               <li>Formalização jurídica da empresa</li>
               <li>Aquisição de britador/triturador de vidro</li>
               <li>Implantação de espaço físico adequado</li>
@@ -816,7 +824,7 @@ Substituição parcial (referência do projeto):
           <div class="num">B</div>
           <div>
             <h4>Fase 2 — Validação técnica (3 a 6 meses)</h4>
-            <ul>
+            <ul class="readable">
               <li>Produção piloto</li>
               <li>Ensaios laboratoriais</li>
               <li>Ajuste de traço do concreto</li>
@@ -833,7 +841,7 @@ Substituição parcial (referência do projeto):
           <div class="num">C</div>
           <div>
             <h4>Fase 3 — Apresentação institucional (6 a 8 meses)</h4>
-            <ul>
+            <ul class="readable">
               <li>Entrega de memorial técnico à prefeitura</li>
               <li>Apresentação de protótipos</li>
               <li>Demonstração de viabilidade econômica</li>
@@ -850,7 +858,7 @@ Substituição parcial (referência do projeto):
           <div class="num">D</div>
           <div>
             <h4>Fase 4 — Licitação e contrato</h4>
-            <ul>
+            <ul class="readable">
               <li>Acompanhamento de edital</li>
               <li>Proposta técnica e comercial</li>
               <li>Comprovação de atendimento às normas</li>
@@ -868,21 +876,21 @@ Substituição parcial (referência do projeto):
     <section class="grid" id="normas">
       <article class="card">
         <h3>📚 Normas e conformidade (blindagem técnica)</h3>
-        <p>
+        <p class="readable">
           A ideia é trabalhar com base normativa e deixar claro que o foco é <b>não estrutural</b>.
           Isso reduz risco, acelera aprovação e encaixa melhor na realidade municipal.
         </p>
-        <ul>
+        <ul class="readable">
           <li>ABNT NBR 9781 — peças de concreto para pavimentação</li>
           <li>ABNT NBR 15116 — agregados reciclados para concreto sem função estrutural</li>
           <li>ABNT NBR 16416 — pavimentos permeáveis de concreto</li>
-          <li>ABNT NBR 6118 / 15575 (como referência de boas práticas e desempenho)</li>
+          <li>ABNT NBR 6118 / 15575 (referência de boas práticas e desempenho)</li>
         </ul>
       </article>
 
       <article class="card">
         <h3>🏛️ O que a prefeitura ganha (argumento de venda)</h3>
-        <ul>
+        <ul class="readable">
           <li>Redução de resíduos sólidos</li>
           <li>Valorização ambiental e imagem institucional</li>
           <li>Economia local (emprego e renda)</li>
@@ -892,7 +900,7 @@ Substituição parcial (referência do projeto):
         </ul>
         <details>
           <summary>Pitch de 20 segundos (pra reunião)</summary>
-          <p>
+          <p class="readable">
             “A Ouro Verde transforma vidro descartado em piso e mobiliário urbano com laudo e norma.
             É economia circular com ganho de manutenção, drenagem urbana e geração de emprego local —
             pronto pra entrar em edital e entregar obra com padrão.”
@@ -902,8 +910,8 @@ Substituição parcial (referência do projeto):
     </section>
 
     <footer class="footer" role="contentinfo">
-      <small>
-        Versão: 1.0 • Documento em formato web para apresentação, impressão e evolução do projeto.
+      <small class="readable">
+        Versão: 1.1 (tema claro + texto enquadrado) • Documento em formato web para apresentação, impressão e evolução do projeto.
         <br/>Dica: depois a gente transforma isso em PWA (offline) e vira o “painel oficial” da Ouro Verde.
       </small>
 
@@ -929,7 +937,7 @@ Substituição parcial (referência do projeto):
     // Print / PDF
     document.getElementById("btnPrint").addEventListener("click", ()=> window.print());
 
-    // Mini "progress tracker" (apresentação)
+    // Mini progress tracker (apresentação)
     const phases = [
       {name:"Planejamento & dossiê", pct:10},
       {name:"Parcerias & fluxo de vidro", pct:25},
